@@ -1,0 +1,6 @@
+dev_news_*.html
+.env
+.venv/
+dist/
+__pycache__/
+*.pyc
