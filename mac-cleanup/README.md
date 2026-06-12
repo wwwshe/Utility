@@ -51,6 +51,7 @@ bash [이 폴더 경로]/setup.sh
 
 ### Xcode
 - `~/Library/Developer/Xcode/DerivedData` (빌드 캐시, 다음 빌드 시 재생성)
+- `~/Library/Developer/Xcode/Archives` — 앱별 구버전 아카이브 삭제, 최신 1개만 유지
 - `~/Library/Developer/Xcode/iOS DeviceSupport` — 기기별 구버전 삭제, 최신만 유지
 - `~/Library/Logs/CoreSimulator` (시뮬레이터 로그)
 - `~/Library/Developer/Xcode/iOS Device Logs` (실기기 연결 로그)

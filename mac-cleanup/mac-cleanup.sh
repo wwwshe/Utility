@@ -81,6 +81,29 @@ ls "$DEVSUPP" 2>/dev/null | grep -v "^iPhone13,2" | awk '{print $1}' | sort -u |
   done
 done
 
+# ── Xcode Archives 구버전 정리 (앱별 최신 1개 유지) ──
+ARCHIVES=~/Library/Developer/Xcode/Archives
+
+if [ -d "$ARCHIVES" ]; then
+  KEEP_LIST=$(mktemp)
+  find "$ARCHIVES" -name "*.xcarchive" -type d | sort | while read -r archive; do
+    # "AppName 6-15-24, 3.45 PM.xcarchive" → 앱 이름 추출
+    app_name=$(basename "$archive" .xcarchive | sed 's/ [0-9][0-9]*-[0-9][0-9]*-[0-9][0-9]*,.*//')
+    echo "$app_name|$archive"
+  done | awk -F'|' '{latest[$1]=$2} END{for (a in latest) print latest[a]}' > "$KEEP_LIST"
+
+  find "$ARCHIVES" -name "*.xcarchive" -type d | while read -r archive; do
+    if ! grep -Fxq "$archive" "$KEEP_LIST"; then
+      rm -rf "$archive"
+      rel_path="${archive#$ARCHIVES/}"
+      echo "$LOG_PREFIX: 삭제 — Archives/$rel_path"
+    fi
+  done
+
+  rm -f "$KEEP_LIST"
+  find "$ARCHIVES" -mindepth 1 -maxdepth 1 -type d -empty -delete 2>/dev/null
+fi
+
 # 정리 후 여유 공간 확인
 AFTER=$(df -g / | awk 'NR==2 {print $4}')
 echo "$LOG_PREFIX: 정리 완료 — 여유 공간 ${AVAIL}GB → ${AFTER}GB"
