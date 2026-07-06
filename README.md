@@ -10,6 +10,7 @@ macOS용 유틸리티 모음 저장소입니다.
 | [mac-cleanup](./mac-cleanup/) | 디스크 여유 공간이 5GB 이하일 때 캐시·Xcode 구버전 파일을 자동 정리하는 launchd 스케줄 |
 | [compress](./compress/) | 폴더 내 PNG를 pngquant로 일괄 압축 |
 | [resize](./resize/) | 폴더 내 PNG를 지정 해상도로 일괄 리사이즈 |
+| [agent-common-rules](./agent-common-rules/) | Codex·Claude 전역 AI agent rule/skill 설치 및 Cursor User Rules 안내 생성 |
 
 ## 빠른 시작 (mobile-news)
 
@@ -68,8 +69,15 @@ Utility/
 ├── compress/
 │   ├── compress_png.sh                   # PNG 압축
 │   └── README.md
-└── resize/
-    ├── resize_png.sh                     # PNG 리사이즈
+├── resize/
+│   ├── resize_png.sh                     # PNG 리사이즈
+│   └── README.md
+└── agent-common-rules/
+    ├── install.sh                        # 설치 래퍼
+    ├── agent_common_rules.py             # 설치/갱신 CLI
+    ├── policy/                           # 전역 rule 원본
+    ├── skills/                           # 전역 skill 원본
+    ├── dist/                             # Cursor 사용자 rule 안내 파일
     └── README.md
 ```
 
